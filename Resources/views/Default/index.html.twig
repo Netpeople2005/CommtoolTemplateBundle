@@ -1,0 +1,89 @@
+{% extends "CommtoolTemplateBundle::base.html.twig" %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style type="text/css">
+        #sections,#html-content{border: 1px solid #9999ff;padding: 5px;margin-right: 5px;float: left}
+        #html-content{overflow: scroll;width: 800px}
+        #sections{padding: 20px;width: 200px}
+        #sections ul{list-style: none;margin: 0;padding: 0}
+        #sections ul li{border: 1px #999999 solid;border-bottom: 0px;padding: 5px}
+        #sections ul li:last-child{border: 1px #999999 solid;}
+        .section-element{border: 1px #006600 dashed;position: relative}
+        #html-content .element-hover{border: 1px dashed #6666ff}
+        .element-edit{position: absolute;font-size: 11px;background-color: #ccccff;line-height: 10px;height: 12px;padding: 2px;cursor: pointer;}
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div id="html-content" class="span7">
+            {{ include('CommtoolTemplateBundle::template_test.html.twig') }}
+            </div>
+            <div class="span4">
+                <div id="sections">
+                    <ul id="drag">
+                        <li><div class="drag" >seccion-1</div></li>
+                        <li><div class="drag" >seccion-2</div></li>
+                        <li><div class="drag" >seccion-3</div></li>
+                    </ul>
+                    <div><a class="toggle-edit" href="#">Toggle Edit</a></div>
+                </div>
+                <div id="help" style="clear: both"></div>
+            </div>
+        </div>
+        <div style="display: none" id="dialog-edit">
+            <div class="section-element1"></div>
+        </div>
+{% endblock %}
+
+{% block javascripts %}
+        <script>
+            $("#sections .drag").draggable({
+                //revert: 'valid',
+                helper: 'clone',
+                cursor: "move"
+            });
+            $("#html-content *:not(img,tr,tbody,tfoot,thead,table)").droppable({
+                greedy: true,
+                over: function() {
+                    $(this).addClass("element-hover")
+                    $("#help").html($(this).prop('tagName').toLowerCase()
+                            + ' ' + $(this).attr('class')
+                            + ' ' + $(this).attr('id')
+                            )
+                },
+                out: function() {
+                    $(this).removeClass("element-hover")
+                },
+                drop: function(event, ui) {
+                    $('#html-content *').removeClass("element-hover")
+                    $(this).droppable('option', 'disabled', true).addClass('section-element ' + ui.draggable.html()).attr('data-section-id', "holaaa")
+                    var offset = $(this).offset();
+                    var edit = $('<div class="element-edit">Edit</div>')
+                    edit.css({
+                        top: offset.top,
+                        left: offset.left + $(this).width() - 20
+                    }).appendTo('body')
+                    edit.data('section', $(this).clone().removeClass('ui-droppable ui-droppable-disabled ui-state-disabled'))
+
+                }
+            }).css({position: 'relative'});
+
+            $(".toggle-edit").on('click', function(event) {
+                $(".element-edit").toggle()
+            })
+
+            $("body").on("click", ".element-edit", function(event) {
+                event.preventDefault()
+                $("#html-content .ui-droppable").droppable('disable')
+                $("#dialog-edit").dialog({
+                    modal: true,
+                    width: 1000,
+                    close: function() {
+                        $("#html-content .ui-droppable").droppable('enable')
+                    }
+                }).find('.section-element1').html($(this).data('section'));
+            })
+            </script>
+{% endblock %}

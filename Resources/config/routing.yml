@@ -1,0 +1,3 @@
+commtool_template_homepage:
+    pattern:  /
+    defaults: { _controller: CommtoolTemplateBundle:Default:index }
