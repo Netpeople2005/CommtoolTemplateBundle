@@ -11,9 +11,18 @@
     <h4>Secciones del Template</h4>
     <ul id="sections-template"></ul>
 </div>
-<div style="display: none" id="dialog-edit">
-    <div class="section-element1"></div>
+<div style="text-align: center" class="lateral">
+    <a class="button generate" style="width: 100%">Generar Template</a>
 </div>
+<div id="dialog-edit"></div>
 <div id="help"></div>
 {% include 'CommtoolTemplateBundle::templates.tpl.twig' %}
+{% endblock %}
+{% block javascripts %}
+<script>
+    var urls = {
+        section_properties: '{{ path('commtool_template_section_properties') }}/'
+    }
+    $('.button').button();
+</script>
 {% endblock %}

@@ -20,4 +20,12 @@ class SectionController extends Controller
         ));
     }
 
+    public function propertiesAction($type)
+    {
+        
+        return $this->render('CommtoolTemplateBundle:Section:properties.html.twig', array(
+            
+        ));
+    }
+
 }

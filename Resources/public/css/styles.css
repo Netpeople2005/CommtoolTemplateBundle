@@ -6,14 +6,17 @@ header{height: 40px;background-color: #000000;display: block;margin-bottom: 20px
 #html-content *{position: relative}
 .bordered{border: 1px solid #9999ff;padding: 5px;}
 #html-content,.lateral{margin-right: 5px}
-#html-content{overflow: scroll;width: 700px;float: left}
+#html-content,.section-content{overflow: scroll;width: 700px;float: left}
 .lateral{padding: 20px;width: 230px;float: right;margin-bottom: 10px}
 .lateral ul{list-style: none;margin: 0;padding: 0}
 .lateral ul li{border: 1px #999999 solid;border-bottom: 0px;padding: 5px;cursor: pointer}
 .lateral ul li:last-child{border: 1px #999999 solid;}
-.section-element{outline: 1px #006600 dashed;display: inline-block;margin-left: -2px}
+.section-element{outline: 1px #006600 dashed;display: inline-block;margin-left: -2px;cursor: pointer}
 #html-content .element-hover{outline: 1px dashed #6666ff;margin-left: -2px}
 #help{position: fixed;top: 0px;left: 50%;width: 150px;height: 20px;background-color: #fff;border: 1px #000 solid;display: none;margin-left: -75px;padding: 5px}
 #sections-template a{text-decoration: none;float: right}
-#html-content .ui-droppable .edit{position: absolute;top: 0;right: 0;font-size: 11px;background-color: #ccccff;line-height: 10px;height: 12px;padding: 2px;cursor: pointer;}
 .section-element:hover,.section-element.active{box-shadow: 7px 6px 15px #000;z-index: 100;outline: 0;border:  1px #006600 dashed;margin-left: -4px}
+
+.section-properties{float: right;width: 280px}
+.section-content{overflow: visible}
+.section-content .section-element{margin-left: 0}
