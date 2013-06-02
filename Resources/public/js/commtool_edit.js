@@ -20,9 +20,9 @@
             $(this).addClass("element-hover")
             var este = $(this)
             $("#help").html(helpTpl({
-                tag: este.prop('tagName'),
-                id: este.attr('id'),
-                classes: este.attr('class')
+                tag: este.prop('tagName').toLowerCase()
+//                id: este.attr('id'),
+//                classes: este.attr('class')
             }))
         },
         out: function() {
