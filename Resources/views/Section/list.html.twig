@@ -2,7 +2,7 @@
 <h4>Secciones Disponibles</h4>
 <ul class="draggable-container">
     {% for e in sections %}
-        <li>{{ e|lower }}</li>
+        <li>{{ e.name|lower }}</li>
     {% endfor %}
 </ul>
 </div>

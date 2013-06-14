@@ -1,0 +1,6 @@
+parameters:
+
+services:
+#    template_section_factory:
+#        class: Optime\Commtool\TemplateBundle\SectionFactory
+#        arguments: ["@service_container", []]

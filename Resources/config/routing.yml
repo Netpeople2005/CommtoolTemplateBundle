@@ -2,6 +2,10 @@ commtool_template_homepage:
     pattern:  /
     defaults: { _controller: CommtoolTemplateBundle:Default:index }
     
+commtool_template_save:
+    pattern:  /save
+    defaults: { _controller: CommtoolTemplateBundle:Default:save }
+    
 commtool_template_section_properties:
     path:  /section/properties/{type}
     defaults: 

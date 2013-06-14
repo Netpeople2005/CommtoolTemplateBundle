@@ -1,7 +1,6 @@
 parameters:
-#    commtool_tamplate.example.class: Optime\Commtool\TemplateBundle\Example
 
 services:
-#    commtool_tamplate.example:
-#        class: %commtool_tamplate.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    template_section_factory:
+        class: Optime\Commtool\TemplateBundle\SectionFactory
+        arguments: ["@service_container", []]
