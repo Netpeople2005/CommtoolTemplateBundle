@@ -10,9 +10,9 @@ class SectionController extends Controller
 
     public function indexAction()
     {
-        $sections = array(
-            new Section\Singleline(),
-        );
+        $sections = $this->get('template_section_factory')->getSections();
+        
+        var_dump($sections);
         
         return $this->render('CommtoolTemplateBundle:Section:list.html.twig', array(
             'sections' => $sections,
