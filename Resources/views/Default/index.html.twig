@@ -2,32 +2,34 @@
 
 {% block content %}
 <div ng-app="commtool.config" ng-controller="MainCtrl">
-<div id="html-content" class="bordered" ng-controller="HtmlCtrl">
-    {% block html_content %}{{ include('CommtoolTemplateBundle::template_test.html.twig') }}{% endblock %}
+    <div id="html-content" class="bordered" ng-controller="HtmlCtrl">
+        {{ include('CommtoolTemplateBundle::template_test.html.twig') }}
+    </div>
+    <div id="sections" class="bordered lateral"  ng-controller="SectionsCtrl">
+        {{ render(controller('CommtoolTemplateBundle:Section:index')) }}
+    </div>
+    <div class="bordered lateral">
+        <h4>Secciones del Template</h4>
+        <ul id="sections-template" ng-controller="TemplateSectionsCtrl">
+            {%raw%}<li ng-repeat="e in sections" ng-click="show(e)" 
+                ng-mouseenter="enter(e)" ng-mouseleave="leave(e)">
+            {{e.type}} ({{e.tag}}->{{e.id}})<a ng-click="remove(e)" href="#">&times;</a></li>
+            {%endraw%}
+        </ul>
+    </div>
+    <div style="text-align: center" class="lateral">
+        <a class="button generate" style="width: 100%" ng-click="save()">Generar Template</a>
+    </div>
+    <div id="dialog-edit" ng-controller="DialogCtrl"></div>
+    <div ng-view></div>
 </div>
-<div id="sections" class="bordered lateral"  ng-controller="SectionsCtrl">
-    {{ render(controller('CommtoolTemplateBundle:Section:index')) }}
-    <div id="help" ng-show="showHelp"></div>
-</div>
-<div class="bordered lateral">
-    <h4>Secciones del Template</h4>
-    <ul id="sections-template"></ul>
-</div>
-<div style="text-align: center" class="lateral">
-    <a class="button generate" style="width: 100%" ng-click="save()">Generar Template</a>
-</div>
-<div id="dialog-edit"></div>
-</div>
-{% include 'CommtoolTemplateBundle::templates.tpl.twig' %}
 {% endblock %}
 {% block javascripts %}
-<script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/services.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/module.js') }}"></script>
-<script>
-    var urls = {
-        section_properties: '{{ path('commtool_template_section_properties') }}/',
-        save: '{{ path('commtool_template_save') }}'
-    }
-    $('.button').button();
-</script>
+        <script type="text/javascript">
+            var urls = {
+            getSection: '{{ path('commtool_template_section_properties') }}/',
+            save: '{{ path('commtool_template_save') }}'
+            }
+            $('.button').button();
+        </script>
 {% endblock %}

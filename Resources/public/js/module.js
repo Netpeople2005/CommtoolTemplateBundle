@@ -1,131 +1,106 @@
 (function($) {
-    var commtoolConfig = angular.module('commtool.config', ['commtool.config.service'])
+    var module = angular.module('commtool.config', ['commtool.config.service'])
 
-    var helpTpl = _.template($("#section-help-tpl").html())
-    var sectionTpl = _.template($("#section-element-tpl").html())
+    module.config(function($routeProvider){
+        
+    })
 
-    commtoolConfig.controller('MainCtrl', function($scope, $element, setAttrs) {
+    module.controller('MainCtrl', function($scope, $element) {
+        $scope.help = {tag: ''}
+        $scope.dialog = {}
+        
         $scope.save = function() {
             $.post(urls.save, {
                 content: $element.find('#html-content').html()
             })
         }
-//        $(".generate").on('click', function(event) {
-//            event.preventDefault()
-//
-//            $("<div/>").dialog({
-//                width: 1000,
-//                modal: true
-//            }).html(generateTemplate());
-//        })
-//
-//        window.generateTemplate = function() {
-//
-//            //$("#html-content .ui-droppable").droppable('disable')
-//
-//            var template = $($("#html-content").html())
-//
-//            template.find(".ui-droppable").droppable().droppable('destroy')
-//            template.find(".section-element.active").removeClass('active')
-//
-//            return template;
-//        }
     })
 
-    commtoolConfig.controller('HtmlCtrl', function($scope, $element, setAttrs) {
-
+    module.controller('HtmlCtrl', function($scope, $element, SectionAttributes, TemplateSections) {
 
         if ($element.find("body").size() > 0) {
             var container = $element.find("body");
         } else {
             var container = $element;
         }
-        
+
         container.find("*:not(tr,tbody,tfoot,thead,table,.commtool_section)").droppable({
-            greedy: true,
-            over: function() {
-                $(this).addClass("element-hover")
+            greedy: true, //solo el elemento mas interno recibe la sección
+            hoverClass: "element-hover", //clase que se coloca en el hover de un droppable
+            tolerance: 'pointer', //estamos en un elemento cuando el mouse esté dentro de este
+            accept: function(drag) {
+                //definimos cuando un droppable acepta un draggable
                 var este = $(this)
-                $("#help").html(helpTpl({
-                    tag: este.prop('tagName').toLowerCase()
-                }))
+                return este.is(drag.data('validElements'))
+                        && !este.is('.commtool_section')
+                        && este.find('.commtool_section').size() === 0
+                        && este.parents('.commtool_section').size() === 0
             },
-            out: function() {
-                $(this).removeClass("element-hover")
+            over: function(event, ui) {
+                //cuando estemos encima de un droppable mostramos el tag en el helper
+                var este = $(this)
+                $scope.$apply(function() {
+                    $scope.help.tag = este.prop('tagName').toLowerCase()
+                })
             },
             drop: function(event, ui) {
-
-                container.find('*').removeClass("element-hover")
+                //cuando sea soltado un drag en un drop, creamos la sección en el elemento del 
+                //template y lo agregamos al listado de secciones creadas.
+                container.find('.element-hover').removeClass('element-hover')
 
                 var este = $(this)
-                var sectionType = ui.draggable.html().toLowerCase()
+                //desabil
+//                este.droppable('option', 'disabled', true)
 
-                if (este.is('.commtool_section')) {
-                    return false;
-                }
+                var sectionType = ui.draggable.data('type')
 
-                var numSections = $('.' + sectionType).filter(function() {
-                    return $(this).parents('.commtool_section').size() == 0;
+                var numSections = container.find('.' + sectionType).filter(function() {
+                    return $(this).parents('.commtool_section').size() === 0;
                 }).size()
 
-                este.addClass('section-element commtool_section ' + sectionType).attr({
+                este.addClass('commtool_section ' + sectionType).attr({
                     'data-id': numSections,
-                    'data-type': sectionType,
+                    'data-type': sectionType
                 })
 
-                setAttrs(este)
+                SectionAttributes(este)
 
-                var el = $(sectionTpl({
+                TemplateSections.add({
+                    id: numSections,
+                    section: este,
                     type: sectionType,
                     tag: este.prop('tagName').toLowerCase()
-                }))
-
-                el.data('section', este)
-
-                $("#sections-template").append(el)
-
+                })
             }
         })
 
-        $("#html-content *").on("click", function(event) {
+        container.find('*').on("click", function(event) {
             event.preventDefault()
         })
 
-        $("#html-content").on("click", ".section-element", function(event) {
-            event.preventDefault()
+//        container.on("click", ".commtool_section", function(event) {
+//            event.preventDefault()
+//
+//            var section = $(this).clone().addClass('active')
+//
+//            $.post(urls.section_properties + section.data('section-type'), {
+//                id: section.data('id')
+//            }).done(function(html) {
+//                container.find(".ui-droppable").droppable('disable')
+//                $("#dialog-edit").dialog({
+//                    modal: true,
+//                    width: 1000,
+//                    resizable: false,
+//                    close: function() {
+//                        container.find(".ui-droppable").droppable('enable')
+//                    }
+//                }).html(html).find('.commtool_section').html(section);
+//            })
+//        })
 
-            var section = $(this).clone().addClass('active')
-
-            $.post(urls.section_properties + section.data('section-type'), {
-                id: section.data('section-id')
-            }).done(function(html) {
-                $("#html-content .ui-droppable").droppable('disable')
-                $("#dialog-edit").dialog({
-                    modal: true,
-                    width: 1000,
-                    resizable: false,
-                    close: function() {
-                        $("#html-content .ui-droppable").droppable('enable')
-                    }
-                }).html(html).find('.section-content').html(section);
-            })
-        })
-
-        $("#sections-template").on("click", 'a', function(event) {
-            event.preventDefault()
-            var div = $(this).parent()
-            div.data('section').removeClass('section-element')
-            div.remove();
-        }).on("mouseenter", 'li', function(event) {
-            $(this).data('section').addClass('active')
-        }).on("mouseleave", 'li', function(event) {
-            $(this).data('section').removeClass('active')
-        }).on("click", 'li', function(event) {
-            $(this).data('section').trigger('click')
-        })
     })
 
-    commtoolConfig.controller('SectionsCtrl', function($scope, $element) {
+    module.controller('SectionsCtrl', function($scope, $element) {
 
         $scope.showHelp = false;
 
@@ -143,6 +118,45 @@
                 });
             }
         })
+    })
+
+    module.controller('TemplateSectionsCtrl', function($scope, $http, $compile, TemplateSections) {
+        $scope.sections = TemplateSections.items;
+
+        $scope.remove = function(el) {
+            el.section.removeClass('commtool_section active')
+            TemplateSections.remove(el)
+        }
+
+        $scope.enter = function(el) {
+            el.section.addClass('active')
+        }
+
+        $scope.leave = function(el) {
+            el.section.removeClass('active')
+        }
+
+        $scope.show = function(el) {
+            $.get(urls.getSection + el.type).done(function(res) {
+                $compile(res)($("#dialog-edit").scope())
+                var section = el.section.clone().addClass('active')
+                $("#dialog-edit").dialog({
+                    modal: true,
+                    width: 1000,
+                    resizable: false,
+                    create: function() {
+                        $("#html-content .ui-droppable").droppable('option','disabled', true)
+                    },
+                    close: function() {
+                        $("#html-content .ui-droppable").droppable('option','disabled', false)
+                    },
+                }).html(res).find('.section-content').html(section);
+            })
+        }
+    })
+    
+    module.controller("DialogCtrl", function($scope){
+        //$scope.dialog;
     })
 
 })(jQuery)

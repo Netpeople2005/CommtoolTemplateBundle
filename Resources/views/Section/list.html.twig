@@ -2,7 +2,13 @@
 <h4>Secciones Disponibles</h4>
 <ul class="draggable-container">
     {% for e in sections %}
-        <li>{{ e.name|lower }}</li>
+        {% set type = e.name|lower %}
+        <li class="{{type}}" data-valid-elements="{{ e.elements|join(',')|escape('html') }}" data-type="{{ type }}">
+            {{ type }}
+        </li>
     {% endfor %}
 </ul>
+<div id="help" ng-show="showHelp">
+    <span>Etiqueta: <strong>{{'{{help.tag}}'}}</strong></span> 
+</div>
 </div>

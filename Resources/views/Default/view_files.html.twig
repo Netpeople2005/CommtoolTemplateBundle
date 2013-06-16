@@ -1,0 +1,7 @@
+<label>Seleccione la Vista</label>
+<select class="view_bundle_template" ng-change="selectView(view)" ng-model="view">
+   <option>--Seleccione--</option>
+   {% for b in files %}
+      <option>{{ b }}</option>
+   {% endfor %}
+</select>

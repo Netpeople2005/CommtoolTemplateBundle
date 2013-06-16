@@ -1,2 +1,6 @@
 <div class="section-content"></div>
-<div class="section-properties"></div>
+<div class="section-properties">
+    <ul ng-init="dialog.options = {{ section.config|json_encode()|e }}">
+        <li ng-repeat="e in dialog.options">{{'{{e|json}}'}}</li>
+    </ul>
+</div>

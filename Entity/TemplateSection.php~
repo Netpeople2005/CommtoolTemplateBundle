@@ -247,27 +247,4 @@ class TemplateSection
     {
         return $this->readOnly;
     }
-
-    /**
-     * Set template
-     *
-     * @param \Optime\Commtool\TemplateBundle\Entity\Template $template
-     * @return TemplateSection
-     */
-    public function setTemplate(\Optime\Commtool\TemplateBundle\Entity\Template $template = null)
-    {
-        $this->template = $template;
-    
-        return $this;
-    }
-
-    /**
-     * Get template
-     *
-     * @return \Optime\Commtool\TemplateBundle\Entity\Template 
-     */
-    public function getTemplate()
-    {
-        return $this->template;
-    }
 }

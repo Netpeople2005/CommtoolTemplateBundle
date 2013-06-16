@@ -1,6 +1,7 @@
 parameters:
 
 services:
-#    template_section_factory:
-#        class: Optime\Commtool\TemplateBundle\SectionFactory
-#        arguments: ["@service_container", []]
+    template_section_singleline:
+        class: Optime\Commtool\TemplateBundle\Section\Singleline
+        tags:
+            - {name: commtool.section.type, alias: singleline}

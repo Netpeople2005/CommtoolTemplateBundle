@@ -1,0 +1,68 @@
+{% extends "CommtoolTemplateBundle::base.html.twig" %}
+
+{% block content %}
+<form ng-app ng-controller="MainCtrl" name="templateForm" ng-submit="guardar()">
+    <div id="template" class="section-content bordered"></div>
+    <div class="bordered lateral">
+        <div>
+            <label>Seleccione el Bundle</label>
+            <select class="bundle_template" ng-model="bundle" ng-change="selectBundle()">
+                {% for b in bundles %}
+                    <option>{{ b }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="select_view" ng-include src="viewsUrl"></div>
+        <div ng-show="viewSelected.length > 0">
+            <label>Nombre del Template</label>
+            <input type="text" required ng-model="name"/>
+            <input type="submit" value="Guardar" ng-disabled="!templateForm.$valid" />
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    var viewsPath = '{{ path('commtool_template_get_views') }}/';
+    var templatePath = '{{ path('commtool_template_render_template') }}';
+    var createPath = '{{ path('commtool_template_create') }}';
+    var editPath = '{{ path('commtool_template_edit') }}/';
+   
+    function MainCtrl($scope, $location){
+        $scope.bundle = '{{ bundles|first }}'
+        $scope.viewsUrl = viewsPath + $scope.bundle;
+        $scope.templateUrl = viewsPath + $scope.bundle;
+        $scope.viewSelected = '';
+        $scope.selectBundle = function(){
+            $scope.viewsUrl = viewsPath + $scope.bundle;
+        }        
+        $scope.selectView = function(view){
+            if(!view.match(':')){
+                view = $scope.bundle + '::' + view
+            }else{
+                view = $scope.bundle + ':' + view
+            }
+            $scope.viewSelected = view
+            $("#template").load(templatePath, {
+                view: view
+            })
+        }
+        
+        $scope.showTemplate = function(view){
+            $scope.selectView($('#select_view select').val())
+        }
+        
+        $scope.guardar = function(){
+            $.post(createPath, {
+                name: $scope.name,
+                view: $scope.viewSelected
+            }).done(function(res){
+                if(res.success){
+                    window.location = editPath + res.id
+                }
+            })
+        }
+    }
+</script>
+{% endblock %}

@@ -1,6 +1,25 @@
-commtool_template_homepage:
+commtool_template_select_template:
     pattern:  /
-    defaults: { _controller: CommtoolTemplateBundle:Default:index }
+    defaults: { _controller: CommtoolTemplateBundle:Default:selectTemplate }
+    
+commtool_template_create:
+    pattern:  /create
+    defaults: { _controller: CommtoolTemplateBundle:Default:create }
+    
+commtool_template_get_views:
+    pattern:  /views/{bundle}
+    defaults: 
+        _controller: CommtoolTemplateBundle:Default:getFilesFromView
+        bundle: null
+    
+commtool_template_render_template:
+    pattern:  /template
+    defaults: 
+        _controller: CommtoolTemplateBundle:Default:renderTemplate
+    
+commtool_template_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: CommtoolTemplateBundle:Default:index, id: null }
     
 commtool_template_save:
     pattern:  /save
