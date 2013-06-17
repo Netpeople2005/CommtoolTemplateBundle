@@ -10,9 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
 
-    public function indexAction()
+    public function editAction($id)
     {
-        return $this->render('CommtoolTemplateBundle:Default:index.html.twig', array('name' => ''));
+        $template = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('CommtoolTemplateBundle:Template')
+                ->find($id);
+
+        return $this->render('CommtoolTemplateBundle:Default:edit.html.twig', array(
+                    'template' => $template,
+        ));
     }
 
     public function selectTemplateAction()
@@ -69,7 +76,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($template);
         $em->flush();
-        
+
         return new JsonResponse(array(
             'success' => true,
             'id' => $template->getId(),

@@ -3,6 +3,7 @@
 namespace Optime\Commtool\TemplateBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Optime\Commtool\TemplateBundle\Model\TemplateInterface;
 
 /**
  * Template
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Template
+class Template implements TemplateInterface
 {
 
     const STATUS_ACTIVE = 1;
@@ -219,6 +220,11 @@ class Template
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function getSections()
+    {
+        
     }
 
 }

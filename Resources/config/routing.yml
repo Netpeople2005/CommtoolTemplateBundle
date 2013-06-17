@@ -19,7 +19,7 @@ commtool_template_render_template:
     
 commtool_template_edit:
     pattern:  /edit/{id}
-    defaults: { _controller: CommtoolTemplateBundle:Default:index, id: null }
+    defaults: { _controller: CommtoolTemplateBundle:Default:edit, id: null }
     
 commtool_template_save:
     pattern:  /save

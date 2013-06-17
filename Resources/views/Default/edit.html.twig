@@ -3,7 +3,7 @@
 {% block content %}
 <div ng-app="commtool.config" ng-controller="MainCtrl">
     <div id="html-content" class="bordered" ng-controller="HtmlCtrl">
-        {{ include('CommtoolTemplateBundle::template_test.html.twig') }}
+        {{ include(template.view) }}
     </div>
     <div id="sections" class="bordered lateral"  ng-controller="SectionsCtrl">
         {{ render(controller('CommtoolTemplateBundle:Section:index')) }}

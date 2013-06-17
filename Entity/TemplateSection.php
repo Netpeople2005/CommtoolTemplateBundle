@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TemplateSection
  *
- * @ORM\Table()
+ * @ORM\Table(name="template_section")
  * @ORM\Entity
  */
 class TemplateSection
 {
+
     /**
      * @var integer
      *
@@ -69,13 +70,32 @@ class TemplateSection
      * @ORM\Column(name="read_only", type="boolean")
      */
     private $readOnly;
-    
+
     /**
      *
      * @var @ORM\ManyToOne(targetEntity="Template")
      */
     protected $template;
 
+    /**
+     *
+     * @var @ORM\ManyToOne(targetEntity="TemplateSection", inversedBy="children")
+     */
+    protected $parent;
+
+    /**
+     *
+     * @var @ORM\OneToMany(targetEntity="TemplateSection", mappedBy="parent")
+     */
+    protected $children;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -257,7 +277,7 @@ class TemplateSection
     public function setTemplate(\Optime\Commtool\TemplateBundle\Entity\Template $template = null)
     {
         $this->template = $template;
-    
+
         return $this;
     }
 
@@ -270,4 +290,61 @@ class TemplateSection
     {
         return $this->template;
     }
+
+    /**
+     * Set parent
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $parent
+     * @return TemplateSection
+     */
+    public function setParent(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Optime\Commtool\TemplateBundle\Entity\TemplateSection 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $children
+     * @return TemplateSection
+     */
+    public function addChildren(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $children
+     */
+    public function removeChildren(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
 }

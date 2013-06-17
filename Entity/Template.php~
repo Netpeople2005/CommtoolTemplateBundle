@@ -3,6 +3,7 @@
 namespace Optime\Commtool\TemplateBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Optime\Commtool\TemplateBundle\Model\TemplateInterface;
 
 /**
  * Template
@@ -10,8 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Template
+class Template implements TemplateInterface
 {
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 2;
+
     /**
      * @var integer
      *
@@ -63,6 +68,11 @@ class Template
      */
     private $updatedAt;
 
+    function __construct()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $this->createdAt = $this->updatedAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -83,7 +93,7 @@ class Template
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -106,7 +116,7 @@ class Template
     public function setView($view)
     {
         $this->view = $view;
-    
+
         return $this;
     }
 
@@ -129,7 +139,7 @@ class Template
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
@@ -152,7 +162,7 @@ class Template
     public function setThumbnail($thumbnail)
     {
         $this->thumbnail = $thumbnail;
-    
+
         return $this;
     }
 
@@ -175,7 +185,7 @@ class Template
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
@@ -198,7 +208,7 @@ class Template
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
@@ -211,4 +221,10 @@ class Template
     {
         return $this->updatedAt;
     }
+
+    public function getSections()
+    {
+        
+    }
+
 }
