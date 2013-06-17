@@ -41,6 +41,13 @@ class Template implements TemplateInterface
     private $view;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer")
@@ -256,5 +263,28 @@ class Template implements TemplateInterface
     public function removeSection(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections)
     {
         $this->sections->removeElement($sections);
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Template
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

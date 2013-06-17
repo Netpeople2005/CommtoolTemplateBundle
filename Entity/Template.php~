@@ -41,6 +41,13 @@ class Template implements TemplateInterface
     private $view;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer")
@@ -78,6 +85,7 @@ class Template implements TemplateInterface
     {
         $this->status = self::STATUS_ACTIVE;
         $this->createdAt = $this->updatedAt = new \DateTime();
+        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -230,7 +238,30 @@ class Template implements TemplateInterface
 
     public function getSections()
     {
-        
+        return $this->sections;
     }
 
+
+    /**
+     * Add sections
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections
+     * @return Template
+     */
+    public function addSection(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections)
+    {
+        $this->sections[] = $sections;
+    
+        return $this;
+    }
+
+    /**
+     * Remove sections
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections
+     */
+    public function removeSection(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections)
+    {
+        $this->sections->removeElement($sections);
+    }
 }

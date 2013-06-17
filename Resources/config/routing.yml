@@ -22,8 +22,8 @@ commtool_template_edit:
     defaults: { _controller: CommtoolTemplateBundle:Default:edit, id: null }
     
 commtool_template_save:
-    pattern:  /save
-    defaults: { _controller: CommtoolTemplateBundle:Default:save }
+    pattern:  /save/{id}
+    defaults: { _controller: CommtoolTemplateBundle:Default:save, id: null }
     
 commtool_template_section_properties:
     path:  /section/properties/{type}

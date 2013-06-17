@@ -1,19 +1,30 @@
 (function($) {
     var module = angular.module('commtool.config', ['commtool.config.service'])
 
-    module.config(function($routeProvider){
-        
+    module.config(function($routeProvider) {
+
     })
 
     module.controller('MainCtrl', function($scope, $element) {
         $scope.help = {tag: ''}
         $scope.dialog = {}
-        
+
         $scope.save = function() {
             $.post(urls.save, {
                 content: $element.find('#html-content').html()
             })
         }
+
+        $element.find('.commtool_section[data-binding]').each(function() {
+            var este = $(this)
+            console.log(este.attr('ng-src'))
+            console.log(este.attr('ng-bind'))
+            if (este.is('.gallery')) {
+                $scope[este.attr('ng-src')] = $(this).attr('src');
+            } else {
+                $scope[este.attr('ng-bind-html-unsafe')] = $(this).html();
+            }
+        })
     })
 
     module.controller('HtmlCtrl', function($scope, $element, SectionAttributes, TemplateSections) {
@@ -145,17 +156,17 @@
                     width: 1000,
                     resizable: false,
                     create: function() {
-                        $("#html-content .ui-droppable").droppable('option','disabled', true)
+                        $("#html-content .ui-droppable").droppable('option', 'disabled', true)
                     },
                     close: function() {
-                        $("#html-content .ui-droppable").droppable('option','disabled', false)
+                        $("#html-content .ui-droppable").droppable('option', 'disabled', false)
                     },
                 }).html(res).find('.section-content').html(section);
             })
         }
     })
-    
-    module.controller("DialogCtrl", function($scope){
+
+    module.controller("DialogCtrl", function($scope) {
         //$scope.dialog;
     })
 

@@ -4,6 +4,7 @@
 <div ng-app="commtool.config" ng-controller="MainCtrl">
     <div id="html-content" class="bordered" ng-controller="HtmlCtrl">
         {{ include(template.view) }}
+        {#{ template.content|raw }#}
     </div>
     <div id="sections" class="bordered lateral"  ng-controller="SectionsCtrl">
         {{ render(controller('CommtoolTemplateBundle:Section:index')) }}
@@ -28,7 +29,7 @@
         <script type="text/javascript">
             var urls = {
             getSection: '{{ path('commtool_template_section_properties') }}/',
-            save: '{{ path('commtool_template_save') }}'
+            save: '{{ path('commtool_template_save',{id: template.id}) }}'
             }
             $('.button').button();
         </script>

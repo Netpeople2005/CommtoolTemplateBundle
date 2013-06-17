@@ -56,8 +56,32 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function saveAction()
+    public function saveAction($id)
     {
+        if (function_exists('mb_stripos')) {
+            $posrFunction = 'mb_strripos';
+            $substrFunction = 'mb_substr';
+        } else {
+            $posrFunction = 'strripos';
+            $substrFunction = 'substr';
+        }
+
+        $twig = $this->get('twig_string');
+//
+        $view = 'CommtoolTemplateBundle::template_test.html.twig';
+//
+        $content = $twig->render($view);
+        
+        $newContent = $this->getRequest()->get('content');
+
+        if (preg_match('/<body[^>]*>/im', $content)) {
+            $content = preg_replace('/(<body[^>]*>)(.*?)(<\/body>)/im', "$1{$newContent}$3", $content);
+        }
+        die($content);
+
+        $content = $substrFunction($content, 0, $pos) . $html . $substrFunction($content, $pos);
+        $response->setContent($content);
+
         $section = $this->get('template_section_factory')->getType('singleline');
 
         return $this->render('CommtoolTemplateBundle:Default:test.html.twig', array(
@@ -71,9 +95,11 @@ class DefaultController extends Controller
 
         $template->setName($this->getRequest()->get('name'))
                 ->setView($this->getRequest()->get('view'))
+                ->setContent('dfsd')
                 ->setThumbnail('dfsdfsd');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()
+                ->getManager();
         $em->persist($template);
         $em->flush();
 

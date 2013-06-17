@@ -348,4 +348,27 @@ class TemplateSection implements SectionConfigInterface
         return $this->children;
     }
 
+
+    /**
+     * Add children
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $children
+     * @return TemplateSection
+     */
+    public function addChild(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $children
+     */
+    public function removeChild(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $children)
+    {
+        $this->children->removeElement($children);
+    }
 }

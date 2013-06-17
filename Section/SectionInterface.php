@@ -8,6 +8,4 @@ interface SectionInterface
     public function getName();
 
     public function getConfig();
-    
-    public function getChildren();
 }
