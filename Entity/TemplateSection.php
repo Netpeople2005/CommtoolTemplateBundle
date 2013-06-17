@@ -3,6 +3,7 @@
 namespace Optime\Commtool\TemplateBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Optime\Commtool\TemplateBundle\Model\SectionConfigInterface;
 
 /**
  * TemplateSection
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="template_section")
  * @ORM\Entity
  */
-class TemplateSection
+class TemplateSection implements SectionConfigInterface
 {
 
     /**
