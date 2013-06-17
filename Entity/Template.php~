@@ -67,6 +67,12 @@ class Template implements TemplateInterface
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
+    
+    /**
+     *
+     * @var @ORM\OneToMany(targetEntity="TemplateSection", mappedBy="template")
+     */
+    protected $sections;
 
     function __construct()
     {

@@ -73,7 +73,7 @@ class TemplateSection
 
     /**
      *
-     * @var @ORM\ManyToOne(targetEntity="Template")
+     * @var @ORM\ManyToOne(targetEntity="Template", inversedBy="sections")
      */
     protected $template;
 

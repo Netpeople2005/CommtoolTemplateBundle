@@ -67,11 +67,18 @@ class Template implements TemplateInterface
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
+    
+    /**
+     *
+     * @var @ORM\OneToMany(targetEntity="TemplateSection", mappedBy="template")
+     */
+    protected $sections;
 
     function __construct()
     {
         $this->status = self::STATUS_ACTIVE;
         $this->createdAt = $this->updatedAt = new \DateTime();
+        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -224,7 +231,30 @@ class Template implements TemplateInterface
 
     public function getSections()
     {
-        
+        return $this->sections;
     }
 
+
+    /**
+     * Add sections
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections
+     * @return Template
+     */
+    public function addSection(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections)
+    {
+        $this->sections[] = $sections;
+    
+        return $this;
+    }
+
+    /**
+     * Remove sections
+     *
+     * @param \Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections
+     */
+    public function removeSection(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $sections)
+    {
+        $this->sections->removeElement($sections);
+    }
 }
