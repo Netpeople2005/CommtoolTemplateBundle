@@ -11,6 +11,18 @@ use Optime\Commtool\TemplateBundle\Entity\TemplateSection;
 class DefaultController extends Controller
 {
 
+    public function indexAction($page = 1)
+    {
+        $templates = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('CommtoolTemplateBundle:Template')
+                ->findAll();
+
+        return $this->render('CommtoolTemplateBundle:Default:index.html.twig', array(
+                    'templates' => $templates,
+        ));
+    }
+
     public function editAction($id)
     {
         $template = $this->getDoctrine()

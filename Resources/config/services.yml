@@ -23,23 +23,3 @@ services:
         class: Optime\Commtool\TemplateBundle\Twig\Extension\SectionExtension
         tags:
             - {name: twig.extension}
-    template_twig_policy:
-        class: Twig_Sandbox_SecurityPolicy
-        public: false
-        arguments:
-            - %template_twig_policy.tags%
-            - %template_twig_policy.filters%
-            - %template_twig_policy.methods%
-            - %template_twig_policy.properties%
-            - %template_twig_policy.functions%
-    template_twig_extension_sandbox:
-        class: Twig_Extension_Sandbox
-        public: false
-        arguments:
-            - "@template_twig_policy"
-            - true
-        tags:
-            - {name: twig_string.extension}
-    twig_string:
-        class: Twig_Environment
-        arguments: ["@twig.loader", %twig.options%]

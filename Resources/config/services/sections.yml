@@ -5,3 +5,7 @@ services:
         class: Optime\Commtool\TemplateBundle\Section\Singleline
         tags:
             - {name: commtool.section.type, alias: singleline}
+    template_section_product:
+        class: Optime\Commtool\TemplateBundle\Section\Product
+        tags:
+            - {name: commtool.section.type, alias: product}

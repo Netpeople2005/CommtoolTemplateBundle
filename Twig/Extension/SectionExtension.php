@@ -3,9 +3,26 @@
 namespace Optime\Commtool\TemplateBundle\Twig\Extension;
 
 use \Twig_SimpleFunction as SimpleFunction;
+use Optime\Commtool\TemplateBundle\Model\TemplateInterface;
 
 class SectionExtension extends \Twig_Extension
 {
+
+    /**
+     *
+     * @var TemplateInterface
+     */
+    protected $template;
+
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    public function setTemplate(TemplateInterface $template = null)
+    {
+        $this->template = $template;
+    }
 
     public function getName()
     {
@@ -25,10 +42,11 @@ class SectionExtension extends \Twig_Extension
             throw new \Exception("El parametro id para la sección section_$type no puede ser vacio");
         }
         $content = " class=\"commtool_section {$type}\" data-id=\"s_$id\" data-type=\"{$type}\" ";
+
         if ($bind) {
             $content .= $this->getAttrs($type, $id) . ' data-binding ';
         }
-        
+
         return $content;
     }
 
@@ -39,11 +57,17 @@ class SectionExtension extends \Twig_Extension
 
     protected function getAttrs($type, $id)
     {
+        $id = "s_$id";
+        if ($this->template) {
+            if ($section = $this->template->getSection($id)) {
+                $id = $section->getCompleteIdentifier();
+            }
+        }
         switch ($type) {
             case 'gallery':
-                return "ng-src=\"t_$id\"";
+                return "ng-src=\"$id\"";
             default:
-                return "ng-bind-html-unsafe=\"t_$id\"";
+                return "ng-bind-html-unsafe=\"$id\"";
         }
     }
 

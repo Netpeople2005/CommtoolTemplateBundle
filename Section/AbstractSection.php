@@ -15,12 +15,4 @@ abstract class AbstractSection implements SectionInterface
             'form_type' => 'text',
         );
     }
-
-    public function elements()
-    {
-        return array('div', 'td', 'span', 'p', 'strong', 'dl'
-            , 'dd', 'li', 'b', ':header', 'em', 'font', 'label', 'a'
-            , 'small', 'th');
-    }
-
 }

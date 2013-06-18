@@ -12,11 +12,11 @@
         console.log($scope.sections)
 
         $scope.enter = function(el) {
-//            el.section.addClass('active')
+            $('[data-id=' + el.id + ']').addClass('active')
         }
 
         $scope.leave = function(el) {
-//            el.section.removeClass('active')
+            $('[data-id=' + el.id + ']').removeClass('active')
         }
 
         $scope.show = function(el) {
