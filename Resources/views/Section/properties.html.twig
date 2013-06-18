@@ -1,6 +1,11 @@
 <div class="section-content"></div>
 <div class="section-properties">
-    <ul ng-init="dialog.options = {{ section.config|json_encode()|e }}">
-        <li ng-repeat="e in dialog.options">{{'{{e|json}}'}}</li>
+    <ul ng-init="options = {{ section.config|json_encode()|e }}">
+        {% for key, val in section.config %}
+        <li><label><input ng-model="options['{{key}}']" value="1" ng-change="change()" type="checkbox" />{{ key }}</label></li>
+        {% endfor %}
+        {#<li ng-repeat="(key, val) in options">
+            <label><input ng-model="val" type="checkbox" />{{'{{key}}'}}</label>
+        </li>#}
     </ul>
 </div>

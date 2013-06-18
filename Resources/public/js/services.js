@@ -1,40 +1,25 @@
 (function($) {
     var service = angular.module('commtool.config.service', []);
 
-    service.factory('SectionAttributes', function() {
+    service.factory('ReadSections', function() {
 
-        return function(el) {
-            if (el.is('img')) {
-                el.attr({
-                    'ng-src': '{{' + el.data('type') + '[' + el.data('id') + ']}}',
-                })
-            } else if (el.is('a')) {
-                el.attr({
-                    'ng-href': '{{' + el.data('type') + '[' + el.data('id') + ']}}',
-                })
-            } else {
-                el.attr({
-                    'ng-bind': el.data('type') + '[' + el.data('id') + ']',
-                })
-            }
-
-        }
-    });
-
-    service.factory('TemplateSections', function() {
-        var sections = {
-            items: []
+        var read = function(container) {
+            var sections = [];
+            container.find('.commtool_section').each(function() {
+                var current = $(this)
+                if (current.parents('.commtool_section').not(container).size() === 0) {
+                    sections.push({
+                        type: current.data('type'),
+                        id: current.data('id'),
+                        tag: current.prop('tagName').toLowerCase(),
+                        children: read(current)
+                    })
+                }
+            })
+            return sections;
         }
 
-        sections.add = function(s) {
-            this.items.push(s)
-        }
-
-        sections.remove = function(s) {
-            this.items.splice(this.items.indexOf(s), 1)
-        }
-        
-        return sections;
+        return read;
     })
 
 })(jQuery);

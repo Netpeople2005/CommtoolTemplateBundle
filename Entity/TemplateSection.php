@@ -33,16 +33,9 @@ class TemplateSection implements SectionConfigInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="identifier", type="string", length=5)
+     * @ORM\Column(name="identifier", type="string", length=100)
      */
     private $identifier;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="bindName", type="string", length=255)
-     */
-    private $bindName;
 
     /**
      * @var array
@@ -66,13 +59,6 @@ class TemplateSection implements SectionConfigInterface
     private $updatedAt;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="read_only", type="boolean")
-     */
-    private $readOnly;
-
-    /**
      *
      * @var @ORM\ManyToOne(targetEntity="Template", inversedBy="sections")
      */
@@ -86,7 +72,7 @@ class TemplateSection implements SectionConfigInterface
 
     /**
      *
-     * @var @ORM\OneToMany(targetEntity="TemplateSection", mappedBy="parent")
+     * @var @ORM\OneToMany(targetEntity="TemplateSection", mappedBy="parent", cascade={"remove"})
      */
     protected $children;
 
@@ -96,6 +82,7 @@ class TemplateSection implements SectionConfigInterface
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -152,29 +139,6 @@ class TemplateSection implements SectionConfigInterface
     public function getIdentifier()
     {
         return $this->identifier;
-    }
-
-    /**
-     * Set bindName
-     *
-     * @param string $bindName
-     * @return TemplateSection
-     */
-    public function setBindName($bindName)
-    {
-        $this->bindName = $bindName;
-
-        return $this;
-    }
-
-    /**
-     * Get bindName
-     *
-     * @return string 
-     */
-    public function getBindName()
-    {
-        return $this->bindName;
     }
 
     /**
@@ -244,29 +208,6 @@ class TemplateSection implements SectionConfigInterface
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set readOnly
-     *
-     * @param boolean $readOnly
-     * @return TemplateSection
-     */
-    public function setReadOnly($readOnly)
-    {
-        $this->readOnly = $readOnly;
-
-        return $this;
-    }
-
-    /**
-     * Get readOnly
-     *
-     * @return boolean 
-     */
-    public function getReadOnly()
-    {
-        return $this->readOnly;
     }
 
     /**

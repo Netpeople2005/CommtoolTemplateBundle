@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Optime\Commtool\TemplateBundle\Entity\Template;
 use Optime\Commtool\TemplateBundle\Locator\FilesBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Optime\Commtool\TemplateBundle\Entity\TemplateSection;
 
 class DefaultController extends Controller
 {
@@ -58,35 +59,24 @@ class DefaultController extends Controller
 
     public function saveAction($id)
     {
-        if (function_exists('mb_stripos')) {
-            $posrFunction = 'mb_strripos';
-            $substrFunction = 'mb_substr';
-        } else {
-            $posrFunction = 'strripos';
-            $substrFunction = 'substr';
-        }
+        $sections = $this->getRequest()->get('sections');
 
-        $twig = $this->get('twig_string');
-//
-        $view = 'CommtoolTemplateBundle::template_test.html.twig';
-//
-        $content = $twig->render($view);
+        $em = $this->getDoctrine()->getManager();
+
+        $template = $em->getRepository('CommtoolTemplateBundle:Template')
+                ->find($id);
         
-        $newContent = $this->getRequest()->get('content');
-
-        if (preg_match('/<body[^>]*>/im', $content)) {
-            $content = preg_replace('/(<body[^>]*>)(.*?)(<\/body>)/im', "$1{$newContent}$3", $content);
-        }
-        die($content);
-
-        $content = $substrFunction($content, 0, $pos) . $html . $substrFunction($content, $pos);
-        $response->setContent($content);
-
-        $section = $this->get('template_section_factory')->getType('singleline');
-
-        return $this->render('CommtoolTemplateBundle:Default:test.html.twig', array(
-                    'section' => $section
-        ));
+        $template->getSections()->clear();
+        
+        $template->setSections($sections);
+        
+        $em->persist($template);
+                
+        $em->flush();
+die(1);
+//        return $this->render('CommtoolTemplateBundle:Default:test.html.twig', array(
+//                    'section' => $section
+//        ));
     }
 
     public function createAction()

@@ -1,20 +1,17 @@
 {% extends "CommtoolTemplateBundle::base.html.twig" %}
 
 {% block content %}
-<div ng-app="commtool.config" ng-controller="MainCtrl">
-    <div id="html-content" class="bordered" ng-controller="HtmlCtrl">
-        {{ include(template.view) }}
-        {#{ template.content|raw }#}
-    </div>
-    <div id="sections" class="bordered lateral"  ng-controller="SectionsCtrl">
-        {{ render(controller('CommtoolTemplateBundle:Section:index')) }}
-    </div>
+<div id="html-content" class="bordered" ng-controller="HtmlCtrl">
+    {{ include(template.view) }}
+    {#{ template.content|raw }#}
+</div>
+<div ng-app="commtool.config" ng-controller="MainCtrl" ng-cloak>
     <div class="bordered lateral">
         <h4>Secciones del Template</h4>
-        <ul id="sections-template" ng-controller="TemplateSectionsCtrl">
+        <ul id="sections-template">
             {%raw%}<li ng-repeat="e in sections" ng-click="show(e)" 
                 ng-mouseenter="enter(e)" ng-mouseleave="leave(e)">
-            {{e.type}} ({{e.tag}}->{{e.id}})<a ng-click="remove(e)" href="#">&times;</a></li>
+            {{e.type}} ({{e.tag}})</li>
             {%endraw%}
         </ul>
     </div>
