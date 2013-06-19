@@ -6,17 +6,22 @@ class Section extends \Twig_Node
 {
 
     protected $content;
+    protected $tag;
 
     function __construct($options, $lineno = null, $tag = null)
     {
         parent::__construct(array(), $options, $lineno, $tag);
+
+        $this->tag = $tag;
     }
 
     public function compile(\Twig_Compiler $compiler)
     {
         $compiler->addDebugInfo($this);
-        
-        $compiler->write('echo \'<span data-id=');
+
+        $compiler->write('echo \'<span ')
+                ->raw('class=')
+                ->string("commtool_section {$this->tag}");
         $this->getAttrs($compiler);
         $compiler->raw('>\';');
 
@@ -37,7 +42,8 @@ class Section extends \Twig_Node
     protected function getAttrs(\Twig_Compiler $compiler)
     {
         foreach ($this->attributes as $name => $val) {
-            $compiler->raw($name);
+            $compiler->raw(" {$name}=")
+                    ->subcompile($val);
         }
     }
 
