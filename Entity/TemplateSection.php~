@@ -33,6 +33,13 @@ class TemplateSection implements SectionConfigInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="label", type="string", length=100)
+     */
+    private $label;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="identifier", type="string", length=100)
      */
     private $identifier;
@@ -318,5 +325,28 @@ class TemplateSection implements SectionConfigInterface
     public function removeChild(\Optime\Commtool\TemplateBundle\Entity\TemplateSection $children)
     {
         $this->children->removeElement($children);
+    }
+
+    /**
+     * Set completeIdentifier
+     *
+     * @param string $completeIdentifier
+     * @return TemplateSection
+     */
+    public function setCompleteIdentifier($completeIdentifier)
+    {
+        $this->completeIdentifier = $completeIdentifier;
+
+        return $this;
+    }
+
+    /**
+     * Get completeIdentifier
+     *
+     * @return string 
+     */
+    public function getCompleteIdentifier()
+    {
+        return $this->completeIdentifier;
     }
 }

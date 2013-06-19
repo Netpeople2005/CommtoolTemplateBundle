@@ -294,6 +294,12 @@ class Template implements TemplateInterface
         foreach ($sections as $data) {
             $section = new TemplateSection();
 
+            if ($parent) {
+                $section->setCompleteIdentifier($parent->getIdentifier() . '.' . $data['id']);
+            } else {
+                $section->setCompleteIdentifier($data['id']);
+            }
+
             $section->setName($data['type'])
                     ->setTemplate($this)
                     ->setParent($parent)
@@ -308,4 +314,23 @@ class Template implements TemplateInterface
         }
     }
 
+    public function getSection($id, $sections = null)
+    {
+        if (null === $sections) {
+            $sections = $this->getSections();
+        }
+
+        foreach ($sections as $section) {
+            if ($id === $section->getIdentifier()) {
+                return $section;
+            }
+            if (null !== $result = $this->getSection($id, $section->getChildren())) {
+                return $result;
+            }
+        }
+
+        return null;
+    }
+
 }
+

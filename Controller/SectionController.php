@@ -2,8 +2,9 @@
 
 namespace Optime\Commtool\TemplateBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Optime\Commtool\TemplateBundle\Section;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SectionController extends Controller
 {
@@ -24,6 +25,19 @@ class SectionController extends Controller
         return $this->render('CommtoolTemplateBundle:Section:properties.html.twig', array(
                     'section' => $section,
         ));
+    }
+
+    public function allConfigsAction()
+    {
+        $sections = $this->get('template_section_factory')->getSections();
+
+        $configs = array();
+
+        foreach ($sections as $type => $object) {
+            $configs[$type] = $object->getConfig();
+        }
+
+        return new JsonResponse($configs);
     }
 
 }

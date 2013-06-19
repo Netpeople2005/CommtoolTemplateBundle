@@ -33,6 +33,13 @@ class TemplateSection implements SectionConfigInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="label", type="string", length=100, nullable=true)
+     */
+    private $label;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="identifier", type="string", length=100)
      */
     private $identifier;
@@ -341,5 +348,28 @@ class TemplateSection implements SectionConfigInterface
     public function getCompleteIdentifier()
     {
         return $this->completeIdentifier;
+    }
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     * @return TemplateSection
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string 
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 }

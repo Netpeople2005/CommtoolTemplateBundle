@@ -8,8 +8,6 @@
     module.controller('MainCtrl', function($scope, $compile, ReadSections) {
 
         $scope.sections = ReadSections($('#html-content'))
-        
-        console.log($scope.sections)
 
         $scope.enter = function(el) {
             $('[data-id=' + el.id + ']').addClass('active')

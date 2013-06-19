@@ -12,7 +12,8 @@
                         type: current.data('type'),
                         id: current.data('id'),
                         tag: current.prop('tagName').toLowerCase(),
-                        children: read(current)
+                        children: read(current),
+                        config: configs[current.data('type')]
                     })
                 }
             })

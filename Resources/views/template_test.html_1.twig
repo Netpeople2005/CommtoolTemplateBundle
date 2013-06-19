@@ -11,8 +11,8 @@ cellspacing="0">
 <td width="600" height="91" valign="top"><table width="600"
 border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td {{ section_singleline('sing_1', true) }}>
-<img src="{{ asset("bundles/commtooltemplate/images/img_01a.jpg") }}" width="282" height="91" />
+<td>
+<img {{ section_image('image_1') }} src="{{ asset("bundles/commtooltemplate/images/img_01a.jpg") }}" width="282" height="91" />
 </td>
 <td>
 <img src="{{ asset("bundles/commtooltemplate/images/img_01b.jpg") }}" width="318" height="91" />
@@ -39,10 +39,10 @@ cellpadding="0">
 <td width="32" align="left" valign="top"><img
 src="{{ asset("bundles/commtooltemplate/images/img_00.gif") }}" width="32" height="30" alt="BlueCarpet"
 border="0" style="display: block;" /></td>
-<td {{ section_product('product_1') }} valign="top"><font face="Arial, Helvetica, sans-serif"
-color="#000000" style="font-size: 24px"> <strong>Promotion Title</strong></font><br /> 
+<td {{ section_product('product_1', false) }} valign="top"><font face="Arial, Helvetica, sans-serif"
+color="#000000" style="font-size: 24px"> <strong {{ section_singleline('sing_prod_1') }}>Promotion Title</strong></font><br /> 
 <font face="Arial, Helvetica, sans-serif" color="#000000" 
-style="font-size: 13px" {{ section_singleline('sing_prod_1', true) }}>Lorem ipsum dolor
+style="font-size: 13px" {{ section_multiline('mult_prod_1') }}>Lorem ipsum dolor
 sit amet, consectetur adipiscing elit. Donec pulvinar
 condimentum dapibus. Class aptent taciti sociosqu ad litora
 torquent per conubia nostra, per inceptos himenaeos. Proin
@@ -238,10 +238,11 @@ border="0" cellspacing="0" cellpadding="0">
 src="{{ asset("bundles/commtooltemplate/images/template_43.jpg") }}" height="45"
 alt="BlueCarpet" border="0">
 
-
-<img
+<span {{ section_loop('sponsor_loop', options={type:'image'}) }}>
+<img {{ section_image('sponsor_image', true) }}
 src="{{ asset("bundles/commtooltemplate/images/template_45.jpg") }}" height="45"
-alt="BlueCarpet" border="0">
+alt="BlueCarpet" border="0"/>
+</span>
 
 
 <img

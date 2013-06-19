@@ -3,7 +3,6 @@
 {% block content %}
 <div id="html-content" class="bordered" ng-controller="HtmlCtrl">
     {{ include(template.view) }}
-    {#{ template.content|raw }#}
 </div>
 <div ng-app="commtool.config" ng-controller="MainCtrl" ng-cloak>
     <div class="bordered lateral">
@@ -29,5 +28,6 @@
             save: '{{ path('commtool_template_save',{id: template.id}) }}'
             }
             $('.button').button();
+            var configs = {{ render(controller('CommtoolTemplateBundle:Section:allConfigs')) }};
         </script>
 {% endblock %}

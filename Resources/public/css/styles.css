@@ -3,7 +3,6 @@ header{height: 40px;background-color: #000000;display: block;margin-bottom: 20px
 .container{margin: 0 auto;width: 1000px}
 .lateral h4{margin: 5px 0px}
 
-#html-content *{position: relative}
 .bordered{border: 1px solid #9999ff;padding: 5px;}
 #html-content,.lateral{margin-right: 5px}
 #html-content,.section-content{overflow: scroll;width: 700px;float: left}

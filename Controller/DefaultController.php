@@ -79,9 +79,10 @@ class DefaultController extends Controller
                 ->find($id);
         
         $template->getSections()->clear();
-        
+//        $em->flush();
+
         $template->setSections($sections);
-        
+//        var_dump($template->getSections());die;
         $em->persist($template);
                 
         $em->flush();

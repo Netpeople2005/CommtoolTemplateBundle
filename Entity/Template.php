@@ -299,14 +299,13 @@ class Template implements TemplateInterface
             } else {
                 $section->setCompleteIdentifier($data['id']);
             }
-
             $section->setName($data['type'])
                     ->setTemplate($this)
                     ->setParent($parent)
                     ->setIdentifier($data['id'])
                     ->setConfig(isset($data['config']) ? $data['config'] : array());
 
-            $this->addSection($section);
+            $this->sections->add($section);
 
             if (isset($data['children']) and count($data['children'])) {
                 $this->setSections($data['children'], $section);
@@ -333,4 +332,3 @@ class Template implements TemplateInterface
     }
 
 }
-
