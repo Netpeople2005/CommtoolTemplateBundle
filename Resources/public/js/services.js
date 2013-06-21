@@ -10,6 +10,7 @@
                 if (current.parents('.commtool_section').not(container).size() === 0) {
                     sections.push({
                         type: current.data('type'),
+                        name: current.data('name'),
                         id: current.data('id'),
                         tag: current.prop('tagName').toLowerCase(),
                         children: read(current),

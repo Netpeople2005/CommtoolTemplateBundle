@@ -299,7 +299,8 @@ class Template implements TemplateInterface
             } else {
                 $section->setCompleteIdentifier($data['id']);
             }
-            $section->setName($data['type'])
+            $section->setName($data['name'])
+                    ->setType($data['type'])
                     ->setTemplate($this)
                     ->setParent($parent)
                     ->setIdentifier($data['id'])

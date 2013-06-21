@@ -7,7 +7,7 @@ use Optime\Commtool\TemplateBundle\Section\AbstractSection;
 class Product extends AbstractSection
 {
 
-    public function getName()
+    public function getType()
     {
         return 'product';
     }

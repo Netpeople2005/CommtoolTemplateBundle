@@ -7,7 +7,7 @@ use Optime\Commtool\TemplateBundle\Section\AbstractSection;
 class Image extends AbstractSection
 {
 
-    public function getName()
+    public function getType()
     {
         return 'image';
     }

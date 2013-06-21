@@ -50,7 +50,7 @@ class SectionExtension extends \Twig_Extension
         if (!$id) {
             throw new \Exception("El parametro id para la sección section_$type no puede ser vacio");
         }
-        $content = " class=\"commtool_section {$type}\" data-id=\"s_$id\" data-type=\"{$type}\" ";
+        $content = " class=\"commtool_section {$type}\" data-id=\"s_$id\" data-type=\"{$type}\" data-name=\"{$type}\" ";
 
         if ($bind) {
             $content .= $this->getAttrs($type, $id) . ' data-binding ';
@@ -68,7 +68,7 @@ class SectionExtension extends \Twig_Extension
         if (!$id) {
             throw new \Exception("El parametro id para la sección section_$type no puede ser vacio");
         }
-        $content = " class=\"commtool_section loop_{$options['type']}\" data-id=\"s_$id\" data-type=\"loop\" ";
+        $content = " class=\"commtool_section loop_{$options['type']}\" data-id=\"s_$id\" data-type=\"loop\" data-name=\"loop_{$options['type']}\" ";
 
         $content .= $this->getAttrs('loop', $id);
 

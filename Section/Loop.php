@@ -7,7 +7,7 @@ use Optime\Commtool\TemplateBundle\Section\AbstractSection;
 class Loop extends AbstractSection
 {
 
-    public function getName()
+    public function getType()
     {
         return 'loop';
     }

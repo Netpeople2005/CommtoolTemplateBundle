@@ -7,7 +7,7 @@ use Optime\Commtool\TemplateBundle\Section\AbstractSection;
 class Multiline extends AbstractSection
 {
 
-    public function getName()
+    public function getType()
     {
         return 'multiline';
     }
