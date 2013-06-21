@@ -15,12 +15,12 @@ class SectionExtension extends \Twig_Extension
      */
     protected $template;
 
-    public function getTokenParsers()
-    {
-        return array(
-            new Singleline(),
-        );
-    }
+//    public function getTokenParsers()
+//    {
+//        return array(
+//            new Singleline(),
+//        );
+//    }
 
     public function getTemplate()
     {
@@ -59,7 +59,7 @@ class SectionExtension extends \Twig_Extension
         return $content;
     }
 
-    public function loop($id, $bind = true, array $options = array())
+    public function loop($id, array $options = array())
     {
         if (!isset($options['type'])) {
             throw new \Exception("Debe especificar un valor para el indice type en las opciones");
@@ -70,9 +70,7 @@ class SectionExtension extends \Twig_Extension
         }
         $content = " class=\"commtool_section loop_{$options['type']}\" data-id=\"s_$id\" data-type=\"loop\" ";
 
-        if ($bind) {
-            $content .= $this->getAttrs('loop', $id) . ' data-binding ';
-        }
+        $content .= $this->getAttrs('loop', $id);
 
         return $content;
     }
@@ -85,16 +83,24 @@ class SectionExtension extends \Twig_Extension
     protected function getAttrs($type, $id)
     {
         $id = "s_$id";
+        $hasChildren = false;
         if ($this->template) {
             if ($section = $this->template->getSection($id)) {
                 $id = $section->getCompleteIdentifier();
+                $hasChildren = count($section->getChildren()) > 0;
             }
         }
         switch ($type) {
             case 'image':
-                return "ng-src=\"{{" . $id . "}}\"";
+                return "ng-src=\"{{" . $id . "}}\" ";
+            case 'loop':
+                return "ng-repeat=\"$id in " . $id . "\" ";
             default:
-                return "ng-bind-html-unsafe=\"$id\"";
+                if (!$hasChildren) {
+                    return "ng-bind-html-unsafe=\"$id\" ";
+                } else {
+                    return ' ';
+                }
         }
     }
 
