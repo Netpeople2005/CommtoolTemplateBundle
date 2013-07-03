@@ -14,6 +14,8 @@ interface SectionConfigInterface extends SectionInterface
     public function getChildren();
 
     public function getParent();
-    
+
     public function getLabel();
+
+    public function getId();
 }

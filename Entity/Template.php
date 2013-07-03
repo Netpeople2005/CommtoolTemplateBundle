@@ -295,7 +295,7 @@ class Template implements TemplateInterface
             $section = new TemplateSection();
 
             if ($parent) {
-                $section->setCompleteIdentifier($parent->getIdentifier() . '.' . $data['id']);
+                $section->setCompleteIdentifier($parent->getCompleteIdentifier() . '.' . $data['id']);
             } else {
                 $section->setCompleteIdentifier($data['id']);
             }

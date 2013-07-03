@@ -1,0 +1,30 @@
+gallery:
+    pattern:  /
+    defaults: { _controller: "CommtoolTemplateBundle:Image:index" }
+
+gallery_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CommtoolTemplateBundle:Image:show" }
+
+gallery_new:
+    pattern:  /new
+    defaults: { _controller: "CommtoolTemplateBundle:Image:new" }
+
+gallery_create:
+    pattern:  /create
+    defaults: { _controller: "CommtoolTemplateBundle:Image:create" }
+    requirements: { _method: post }
+
+gallery_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CommtoolTemplateBundle:Image:edit" }
+
+gallery_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CommtoolTemplateBundle:Image:update" }
+    requirements: { _method: post|put }
+
+gallery_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CommtoolTemplateBundle:Image:delete" }
+    requirements: { _method: post|delete }

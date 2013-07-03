@@ -10,7 +10,7 @@ header{height: 40px;background-color: #000000;display: block;margin-bottom: 20px
 .lateral ul{list-style: none;margin: 0;padding: 0}
 .lateral ul li{border: 1px #999999 solid;border-bottom: 0px;padding: 5px;cursor: pointer}
 .lateral ul li:last-child{border: 1px #999999 solid;}
-.commtool_section{outline: 1px #006600 dashed;display: inline-block;margin-left: -2px;cursor: pointer}
+.commtool_section{outline: 1px #006600 dashed;/*display: inline-block;*/margin-left: -2px;cursor: pointer}
 #html-content .element-hover{outline: 1px dashed #6666ff;margin-left: -2px}
 #help{position: fixed;top: 0px;left: 50%;width: 150px;height: 20px;background-color: #fff;border: 1px #000 solid;margin-left: -75px;padding: 5px}
 #sections-template a{text-decoration: none;float: right}

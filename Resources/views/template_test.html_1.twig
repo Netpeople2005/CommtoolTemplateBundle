@@ -12,7 +12,7 @@ cellspacing="0">
 border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td>
-<img {{ section_image('image_1') }} src="{{ asset("bundles/commtooltemplate/images/img_01a.jpg") }}" width="282" height="91" />
+<img {{ section_image('logo_ppal') }} src="{{ asset("bundles/commtooltemplate/images/img_01a.jpg") }}" width="282" height="91" />
 </td>
 <td>
 <img src="{{ asset("bundles/commtooltemplate/images/img_01b.jpg") }}" width="318" height="91" />
@@ -22,7 +22,7 @@ border="0" cellspacing="0" cellpadding="0">
 </tr>
 <tr>
 <td width="600" height="252" valign="top"><a href="#"
-target="_blank"><img
+target="_blank"><img {{ section_image('ppal') }}
 src="{{ asset("bundles/commtooltemplate/images/img_02.jpg") }}" width="600" height="252" alt="BlueCarpet"
 border="0" style="display: block;" />
 </a></td>
@@ -39,10 +39,10 @@ cellpadding="0">
 <td width="32" align="left" valign="top"><img
 src="{{ asset("bundles/commtooltemplate/images/img_00.gif") }}" width="32" height="30" alt="BlueCarpet"
 border="0" style="display: block;" /></td>
-<td {{ section_product('product_1', false) }} valign="top"><font face="Arial, Helvetica, sans-serif"
-color="#000000" style="font-size: 24px"> <strong {{ section_singleline('sing_prod_1') }}>Promotion Title</strong></font><br /> 
+<td valign="top"><font face="Arial, Helvetica, sans-serif"
+color="#000000" style="font-size: 24px"> <strong {{ section_singleline() }}>Promotion Title</strong></font><br /> 
 <font face="Arial, Helvetica, sans-serif" color="#000000" 
-style="font-size: 13px" {{ section_multiline('mult_prod_1') }}>Lorem ipsum dolor
+style="font-size: 13px" {{ section_multiline() }}>Lorem ipsum dolor
 sit amet, consectetur adipiscing elit. Donec pulvinar
 condimentum dapibus. Class aptent taciti sociosqu ad litora
 torquent per conubia nostra, per inceptos himenaeos. Proin
@@ -66,7 +66,7 @@ border="0" style="display: block;" /></td>
 <td width="600" valign="top">
 
 <table width="600" border="0" cellspacing="0" cellpadding="0">
-<tr>
+<tr {{ section_loop('singleline') }}>
 <td width="32" height="229" valign="top"><img
 src="{{ asset("bundles/commtooltemplate/images/img_00.gif") }}" width="32" height="30" alt="BlueCarpet"
 border="0" style="display: block;" /></td>
@@ -86,10 +86,10 @@ src="{{ asset("bundles/commtooltemplate/images/img_00.gif") }}" width="10" heigh
 alt="BlueCarpet" border="0" style="display: block;" /></td>
 <td width="244" height="110" valign="top"><font
 face="Arial, Helvetica, sans-serif" color="#000000"
-style="font-size: 24px"> <strong>
+style="font-size: 24px"> <strong {{ section_singleline() }} >
 Family Name</strong></font><br /> 
 <font face="Arial, Helvetica, sans-serif"
-color="#000000" style="font-size: 13px">
+color="#000000" style="font-size: 13px" {{ section_multiline() }} >
 
 Family Description
 </font></td>
@@ -238,9 +238,8 @@ border="0" cellspacing="0" cellpadding="0">
 src="{{ asset("bundles/commtooltemplate/images/template_43.jpg") }}" height="45"
 alt="BlueCarpet" border="0">
 
-<span {{ section_loop('sponsor_loop', options={type:'image'}) }}>
-<img {{ section_image('sponsor_image', true) }}
-src="{{ asset("bundles/commtooltemplate/images/template_45.jpg") }}" height="45"
+<span>
+<img src="{{ asset("bundles/commtooltemplate/images/template_45.jpg") }}" height="45"
 alt="BlueCarpet" border="0"/>
 </span>
 

@@ -5,25 +5,25 @@
 
         var read = function(container) {
             var sections = [];
-            container.find('.commtool_section').each(function() {
+            container.find('.commtool_section').filter(function() {
+                return $(this).parents('.commtool_section:first').not(container).size() === 0;
+            }).each(function() {
                 var current = $(this)
-                if (current.parents('.commtool_section').not(container).size() === 0) {
-                    sections.push({
-                        type: current.data('type'),
-                        name: current.data('name'),
-                        id: current.data('id'),
-                        tag: current.prop('tagName').toLowerCase(),
-                        children: read(current),
-                        config: configs[current.data('type')]
-                    })
-                }
+                sections.push({
+                    type: current.data('type'),
+                    name: current.data('name'),
+                    id: current.data('id'),
+                    tag: current.prop('tagName').toLowerCase(),
+                    children: read(current),
+                    config: configs[current.data('type')]
+                })
             })
             return sections;
         }
 
         return read;
     })
-
+    
 })(jQuery);
 
 

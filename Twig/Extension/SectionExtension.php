@@ -3,33 +3,33 @@
 namespace Optime\Commtool\TemplateBundle\Twig\Extension;
 
 use \Twig_SimpleFunction as SimpleFunction;
+use Optime\Bundle\CommtoolBundle\CommtoolBuilderInterface;
 use Optime\Commtool\TemplateBundle\Model\TemplateInterface;
-use Optime\Commtool\TemplateBundle\Twig\TokenParser\Singleline;
 
 class SectionExtension extends \Twig_Extension
 {
 
     /**
      *
-     * @var TemplateInterface
+     * @var CommtoolBuilderInterface
      */
-    protected $template;
+    protected $commtool;
 
-//    public function getTokenParsers()
-//    {
-//        return array(
-//            new Singleline(),
-//        );
-//    }
+    /**
+     *
+     * @var int
+     */
+    protected $counter = 0;
 
-    public function getTemplate()
+    public function getCommtool()
     {
-        return $this->template;
+        return $this->commtool;
     }
 
-    public function setTemplate(TemplateInterface $template = null)
+    public function setCommtool(CommtoolBuilderInterface $commtool = null)
     {
-        $this->template = $template;
+        $this->commtool = $commtool;
+        $this->counter = 0;
     }
 
     public function getName()
@@ -45,59 +45,54 @@ class SectionExtension extends \Twig_Extension
         );
     }
 
-    public function section($type, $id, $bind = true, array $options = array())
+    public function section($type, $name = null, array $options = array())
     {
-        if (!$id) {
-            throw new \Exception("El parametro id para la sección section_$type no puede ser vacio");
+        if ($name) {
+            $class = $name . '_' . $type;
+        } else {
+            $class = $type;
         }
-        $content = " class=\"commtool_section {$type}\" data-id=\"s_$id\" data-type=\"{$type}\" data-name=\"{$type}\" ";
 
-        if ($bind) {
-            $content .= $this->getAttrs($type, $id) . ' data-binding ';
-        }
+        $id = $this->counter++;
+
+        $content = " class=\"commtool_section {$class}\" data-id=\"s_$id\" data-type=\"{$type}\" data-name=\"{$class}\" ";
+
+        $content .= $this->getAttrs($type, $id);
 
         return $content;
     }
 
-    public function loop($id, array $options = array())
+    public function loop($name, array $options = array())
     {
-        if (!isset($options['type'])) {
-            throw new \Exception("Debe especificar un valor para el indice type en las opciones");
-        }
+        $id = $this->counter++;
 
-        if (!$id) {
-            throw new \Exception("El parametro id para la sección section_$type no puede ser vacio");
-        }
-        $content = " class=\"commtool_section loop_{$options['type']}\" data-id=\"s_$id\" data-type=\"loop\" data-name=\"loop_{$options['type']}\" ";
+        $content = " class=\"commtool_section {$name}_loop\" data-id=\"s_$id\" data-type=\"loop\" data-name=\"{$name}_loop\" ";
 
         $content .= $this->getAttrs('loop', $id);
 
         return $content;
     }
 
-    public function resolveType($type)
-    {
-        
-    }
-
     protected function getAttrs($type, $id)
     {
         $id = "s_$id";
         $hasChildren = false;
-        if ($this->template) {
-            if ($section = $this->template->getSection($id)) {
-                $id = $section->getCompleteIdentifier();
-                $hasChildren = count($section->getChildren()) > 0;
+        if ($this->commtool) {
+            if ($control = $this->commtool->getControl($id)) {
+                $id = $control->getIndex();
+                $hasChildren = count($control->getChildren()) > 0;
+            } else {
+                return ' ';
             }
         }
         switch ($type) {
             case 'image':
-                return "ng-src=\"{{" . $id . "}}\" ";
+                return "ng-src=\"{{" . $id . ".value}}\" ";
             case 'loop':
                 return "ng-repeat=\"$id in " . $id . "\" ";
             default:
                 if (!$hasChildren) {
-                    return "ng-bind-html-unsafe=\"$id\" ";
+                    return "ng-bind-html-unsafe=\"{$id}.value\" ";
                 } else {
                     return ' ';
                 }

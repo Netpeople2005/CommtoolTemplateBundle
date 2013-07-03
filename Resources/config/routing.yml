@@ -38,3 +38,12 @@ commtool_template_section_properties:
     defaults: 
         _controller: CommtoolTemplateBundle:Section:properties
         type: null
+        
+CommtoolTemplateBundle_gallery:
+    resource: "@CommtoolTemplateBundle/Resources/config/routing/image.yml"
+    prefix: /gallery  
+        
+CommtoolTemplateBundle_get_gallery:
+    path:  /section/{sectionId}/gallery
+    defaults: 
+        _controller: CommtoolTemplateBundle:Image:getGallery
