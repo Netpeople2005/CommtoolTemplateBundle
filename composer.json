@@ -1,0 +1,6 @@
+{
+    "name": "netpeople/commtool_template_config",
+    "require": {
+        "php": ">=5.3.3"
+    }
+}
