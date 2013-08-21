@@ -5,6 +5,10 @@ services:
         class: Optime\Commtool\TemplateBundle\Section\Singleline
         tags:
             - {name: commtool.section.type, alias: singleline}
+    template_section_text:
+        class: Optime\Commtool\TemplateBundle\Section\Text
+        tags:
+            - {name: commtool.section.type, alias: text}
     template_section_multiline:
         class: Optime\Commtool\TemplateBundle\Section\Multiline
         tags:
