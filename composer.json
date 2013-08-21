@@ -1,0 +1,10 @@
+{
+    "name": "netpeople/commtool_template_config",
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": {"Optime\\Commtool\\TemplateBundle\\": ""}
+    },
+    "target-dir": "Optime/Commtool/TemplateBundle"
+}

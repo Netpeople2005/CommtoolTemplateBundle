@@ -1,0 +1,24 @@
+body{margin: 0}
+header{height: 40px;background-color: #000000;display: block;margin-bottom: 20px}
+.container{margin: 0 auto;width: 1000px}
+.lateral h4{margin: 5px 0px}
+
+.bordered{border: 1px solid #9999ff;padding: 5px;}
+#html-content,.lateral{margin-right: 5px}
+#html-content,.section-content{overflow: scroll;width: 700px;float: left}
+.lateral{padding: 20px;width: 230px;float: right;margin-bottom: 10px}
+.lateral ul{list-style: none;margin: 0;padding: 0}
+.lateral ul li{border: 1px #999999 solid;border-bottom: 0px;padding: 5px;cursor: pointer}
+.lateral ul li:last-child{border: 1px #999999 solid;}
+.commtool_section{outline: 1px #006600 dashed;/*display: inline-block;*/margin-left: -2px;cursor: pointer}
+#html-content .element-hover{outline: 1px dashed #6666ff;margin-left: -2px}
+#help{position: fixed;top: 0px;left: 50%;width: 150px;height: 20px;background-color: #fff;border: 1px #000 solid;margin-left: -75px;padding: 5px}
+#sections-template a{text-decoration: none;float: right}
+.commtool_section:hover,.commtool_section.active{box-shadow: 7px 6px 15px #000;z-index: 100;outline: 0;border:  1px #006600 dashed;margin-left: -4px}
+
+.section-properties{float: right;width: 280px}
+.section-content{overflow: visible}
+.section-content .commtool_section{margin-left: 0}
+
+#html-content .ui-state-disabled{opacity: 1;filter: Alpha(Opacity=100);background-image: inherit;}
+.lateral select,.lateral input,.lateral textarea{width: 100%}

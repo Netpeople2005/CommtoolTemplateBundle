@@ -1,0 +1,25 @@
+parameters:
+    template_twig_policy.tags: 
+        - block
+        - spaceless
+    template_twig_policy.filters: [abs, capitalize, date, default, escape, first, length, lower, merge, number_format, raw, replace, title, trim, upper]
+    template_twig_policy.methods: []
+    template_twig_policy.properties: []
+    template_twig_policy.functions: 
+        - block
+        - constant
+        - date
+        - asset
+
+services:
+    template_section_factory:
+        class: Optime\Commtool\TemplateBundle\SectionFactory
+        arguments: ["@service_container", []]
+    commtool_template_twig_extension:
+        class: Optime\Commtool\TemplateBundle\Twig\Extension\TemplateExtension
+        tags:
+            - {name: twig.extension}
+    commtool_template_section_twig_extension:
+        class: Optime\Commtool\TemplateBundle\Twig\Extension\SectionExtension
+        tags:
+            - {name: twig.extension}

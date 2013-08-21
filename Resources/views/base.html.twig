@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/commtooltemplate/css/jquery-ui.css') }}" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/commtooltemplate/css/styles.css') }}" />
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            a   
+        </header>
+        <section class="container">
+            {% block content %}{% endblock %}
+        </section>
+        <footer></footer>
+        <script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/angular.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/jquery-ui.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/underscore-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/services.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/commtooltemplate/js/module.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

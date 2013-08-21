@@ -1,0 +1,23 @@
+parameters:
+
+services:
+    template_section_singleline:
+        class: Optime\Commtool\TemplateBundle\Section\Singleline
+        tags:
+            - {name: commtool.section.type, alias: singleline}
+    template_section_multiline:
+        class: Optime\Commtool\TemplateBundle\Section\Multiline
+        tags:
+            - {name: commtool.section.type, alias: multiline}
+    template_section_image:
+        class: Optime\Commtool\TemplateBundle\Section\Image
+        tags:
+            - {name: commtool.section.type, alias: image}
+    template_section_product:
+        class: Optime\Commtool\TemplateBundle\Section\Product
+        tags:
+            - {name: commtool.section.type, alias: product}
+    template_section_loop:
+        class: Optime\Commtool\TemplateBundle\Section\Loop
+        tags:
+            - {name: commtool.section.type, alias: loop}

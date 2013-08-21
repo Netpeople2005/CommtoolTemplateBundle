@@ -1,0 +1,49 @@
+commtool_template_list:
+    pattern:  /
+    defaults: { _controller: CommtoolTemplateBundle:Default:index }
+    
+commtool_template_select_template:
+    pattern:  /select
+    defaults: { _controller: CommtoolTemplateBundle:Default:selectTemplate }
+    
+commtool_template_create:
+    pattern:  /create
+    defaults: { _controller: CommtoolTemplateBundle:Default:create }
+    
+commtool_template_get_views:
+    pattern:  /views/{bundle}
+    defaults: 
+        _controller: CommtoolTemplateBundle:Default:getFilesFromView
+        bundle: null
+    
+commtool_template_render_template:
+    pattern:  /template
+    defaults: 
+        _controller: CommtoolTemplateBundle:Default:renderTemplate
+    
+commtool_template_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: CommtoolTemplateBundle:Default:edit, id: null }
+    
+commtool_template_remove:
+    pattern:  /edit/{id}
+    defaults: { _controller: CommtoolTemplateBundle:Default:remove, id: null }
+    
+commtool_template_save:
+    pattern:  /save/{id}
+    defaults: { _controller: CommtoolTemplateBundle:Default:save, id: null }
+    
+commtool_template_section_properties:
+    path:  /section/properties/{type}
+    defaults: 
+        _controller: CommtoolTemplateBundle:Section:properties
+        type: null
+        
+CommtoolTemplateBundle_gallery:
+    resource: "@CommtoolTemplateBundle/Resources/config/routing/image.yml"
+    prefix: /gallery  
+        
+CommtoolTemplateBundle_get_gallery:
+    path:  /section/{sectionId}/gallery
+    defaults: 
+        _controller: CommtoolTemplateBundle:Image:getGallery

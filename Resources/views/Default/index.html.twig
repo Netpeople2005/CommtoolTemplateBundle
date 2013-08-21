@@ -1,0 +1,28 @@
+{% extends "CommtoolTemplateBundle::base.html.twig" %}
+
+{% block content %}
+<p>
+    <a href="{{ path('commtool_template_select_template') }}">Agregar</a>
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Template</th>
+            <th colspan="2" >Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in templates %}
+            <tr>
+                <td>{{ t.id }}</td>
+                <td>{{ t.name }}</td>
+                <td>{{ t.view }}</td>
+                <td><a href="{{ path('commtool_template_edit',{id:t.id}) }}">Editar</a></td>
+                <td><a href="{{ path('commtool_template_remove',{id:t.id}) }}">Eliminar</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
