@@ -19,6 +19,7 @@ class Text extends AbstractSection
 
         $resolver->setDefaults(array(
             'is_interactive' => false,
+            'is_html' => false,
         ));
     }
 
