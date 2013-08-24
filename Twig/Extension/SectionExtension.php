@@ -75,12 +75,13 @@ class SectionExtension extends \Twig_Extension
 
     protected function getAttrs($type, $id)
     {
-        $id = "s_$id";
+        $identifier = $id = "s_$id";
         $hasChildren = false;
         $is_html = true;
         if ($this->commtool) {
             if ($control = $this->commtool->getControl($id)) {
                 $id = $control->getIndex();
+                $identifier = $control->getIdentifier();
                 $hasChildren = count($control->getChildren()) > 0;
                 $is_html = $control->getOptions('is_html') ? : false;
             } else {
@@ -91,7 +92,7 @@ class SectionExtension extends \Twig_Extension
             case 'image':
                 return "ng-src=\"{{" . $id . ".value}}\" ";
             case 'loop':
-                return "ng-repeat=\"$id in " . $id . "\" ";
+                return "ng-repeat=\"{$identifier} in {$id}\" ";
             default:
                 if (!$hasChildren) {
                     if ($is_html) {

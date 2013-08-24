@@ -307,11 +307,16 @@ class Template implements TemplateInterface
             $section = new TemplateSection();
 
             if ($parent) {
-                $section->setCompleteIdentifier($parent->getCompleteIdentifier() . '.' . $data['id']);
+                if ('loop' === $parent->getType()) {
+                    $section->setCompleteIdentifier($parent->getIdentifier() . '.' . $data['id']);
+                } else {
+                    $section->setCompleteIdentifier($parent
+                                    ->getCompleteIdentifier() . '.' . $data['id']);
+                }
             } else {
                 $section->setCompleteIdentifier($data['id']);
             }
-            
+
             $section->setName($data['name'])
                     ->setType($data['type'])
                     ->setTemplate($this)
@@ -345,7 +350,6 @@ class Template implements TemplateInterface
         return null;
     }
 
-
     /**
      * Add promotion_template
      *
@@ -355,7 +359,7 @@ class Template implements TemplateInterface
     public function addPromotionTemplate(\Optime\Promowin\PromotionsBundle\Entity\PromotionTemplate $promotionTemplate)
     {
         $this->promotion_template[] = $promotionTemplate;
-    
+
         return $this;
     }
 
@@ -398,7 +402,8 @@ class Template implements TemplateInterface
     public function setHotspot(\Optime\Promowin\PromotionsBundle\Entity\Hotspot $hotspot = null)
     {
         $this->hotspot = $hotspot;
-    
+
         return $this;
     }
+
 }

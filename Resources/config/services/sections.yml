@@ -21,6 +21,10 @@ services:
         class: Optime\Commtool\TemplateBundle\Section\Product
         tags:
             - {name: commtool.section.type, alias: product}
+    template_section_product_detail:
+        class: Optime\Commtool\TemplateBundle\Section\ProductDetail
+        tags:
+            - {name: commtool.section.type, alias: product_detail}
     template_section_loop:
         class: Optime\Commtool\TemplateBundle\Section\Loop
         tags:
