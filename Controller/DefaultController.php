@@ -40,6 +40,9 @@ class DefaultController extends Controller
     {
         $bundles = array_keys($this->get('kernel')->getBundles());
 
+
+        array_unshift($bundles, '__main__');
+
         return $this->render('CommtoolTemplateBundle:Default:selectTemplate.html.twig', array(
                     'bundles' => $bundles,
         ));
@@ -47,14 +50,18 @@ class DefaultController extends Controller
 
     public function getFilesFromViewAction($bundle)
     {
-        $dir = $this->get('kernel')->locateResource("@$bundle");
-
-        $files = FilesBundle::getFiles(rtrim($dir, '/') . '/Resources/views/');
-
-        $views = array();
-        foreach ($files as $view) {
-            $views[] = str_replace('/', ':', substr($view, strpos($view, '/Resources/views/') + 17));
+        if ('__main__' === $bundle) {
+            $bundleName = ':';
+        } else {
+            $bundleName = $bundle . ':';
         }
+        
+        $bundle = preg_replace('/.+(Bundle)$/', '', $bundle); //le quitamos el sufijo si lo tiene
+
+        $paths = $this->get('twig.loader')->getPaths($bundle);
+
+
+        $views = FilesBundle::getFiles($paths[0], $bundleName);
 
         return $this->render('CommtoolTemplateBundle:Default:view_files.html.twig', array(
                     'files' => $views
@@ -84,7 +91,7 @@ class DefaultController extends Controller
         $template->setSections($sections);
         $em->persist($template);
         $em->flush();
-        
+
         return new Response(1);
     }
 

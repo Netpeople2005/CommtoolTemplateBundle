@@ -38,11 +38,11 @@
             $scope.viewsUrl = viewsPath + $scope.bundle;
         }        
         $scope.selectView = function(view){
-            if(!view.match(':')){
+            /*if(!view.match(':')){
                 view = $scope.bundle + '::' + view
             }else{
                 view = $scope.bundle + ':' + view
-            }
+            }*/
             $scope.viewSelected = view
             $("#template").load(templatePath, {
                 view: view

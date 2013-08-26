@@ -10,7 +10,7 @@ namespace Optime\Commtool\TemplateBundle\Locator;
 class FilesBundle
 {
 
-    public static function getFiles($path)
+    public static function getFiles($path, $bundle)
     {
         $files = array();
         $path = rtrim($path, '/');
@@ -20,10 +20,16 @@ class FilesBundle
                 if (strpos($file, '.') === 0) {
                     continue;
                 } elseif (is_file("$path/$file")) {
-                    $files[] = "$path/$file";
+
+                    $view = "$path/$file";
+                    $view = substr($view, strpos($view, '/Resources/views/') + 17);
+                    if (strpos($view, '/')) {
+                        $view = preg_replace('/(.+?)(\/)(.+)/', '$1:$3', $view, 1);
+                    }
+                    $files[] = $bundle . $view;
                     continue;
                 }
-                foreach (self::getFiles("$path/$file") as $f) {
+                foreach (self::getFiles("$path/$file", $bundle) as $f) {
                     $files[] = $f;
                 }
             }
